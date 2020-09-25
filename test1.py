@@ -2,6 +2,7 @@
 # Qtdesigner
 
 from tkinter import *
+from tkcalendar import DateEntry
 from tkinter.ttk import Combobox
 import tkinter.messagebox as tmsg
 
@@ -92,7 +93,7 @@ class machine_details(Tk):
         Combobox(self.machineentrywindow,text = self.newsupplierval, values = self.newsupplierlist, font = 'Cambria 11 bold').grid(row = 4, column = 4)
         Entry(self.machineentrywindow, text = self.newgencodeval, state = DISABLED, width = 22, font = 'Cambria 11 bold').grid(row = 8, column = 1)
 
-
+        DateEntry(self.machineentrywindow, width = 12, year = 2020, month = 9, day = 26, bg = 'darkblue', fg = 'white', bd = 2).grid(row = 3, column = 5)
 
         Button(self.machineentrywindow, command = self.gencode,  text = 'Generate Code', font ='Cambria 12 bold italic', bd = 5, relief = RAISED,bg ='#c1cdc1', width = 15).grid(row = 7, columnspan = 2)
         Button(self.machineentrywindow, command = self.maccodesaved,  text = 'Confirm', font ='Cambria 12 bold italic', bd = 5, relief = RAISED,bg ='#c1cdc1', width = 10).grid(row = 9, columnspan = 2)
