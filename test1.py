@@ -1,6 +1,4 @@
 
-# Qtdesigner
-
 from tkinter import *
 from tkcalendar import DateEntry
 from tkinter.ttk import Combobox
@@ -16,6 +14,9 @@ class machine_details(Tk):
 
     def main_page_label(self,textinp,font, anchor):
         Label(self, text = textinp, bg ="#ffffff", fg = '#000000', font = font, anchor=anchor).pack(padx = 10)
+
+    def enterdate(self):
+        self.newpurchasedval.set(self.newmacpurdate.get_date())
 
     def gencode(self):
         self.newgencodeval.set(f'{self.newdivval.get()}/{self.newmaccodeval.get()}{self.newcapval.get()}-{self.newnomacval.get()}/{self.newserialval.get()}')
@@ -49,7 +50,7 @@ class machine_details(Tk):
     def machineentry(self):
         self.machineentrywindow = Toplevel(root)
         self.machineentrywindow.title('New Machine Entry')
-        self.machineentrywindow.geometry('800x530')
+        self.machineentrywindow.geometry('1000x530')
         self.machineentrywindow.resizable(height=False, width=False)
         # print(self.machineentrywindow.winfo_height())
         # print(self.machineentrywindow.winfo_width())
@@ -79,7 +80,7 @@ class machine_details(Tk):
         self.newmacnamelist = ['Dyeing Drum','Compressor']
         self.newmaccodelist = ['DRM','CPR']
         self.newcaplist = ['800','25.0']
-        self.newnomaclist = ['1','1']
+        self.newnomaclist = ['01','02']
         self.newseriallist = ['1001','1014']
         self.newsupplierlist = ['Shaheen Enterprises','Western Engineering']
 
@@ -93,10 +94,14 @@ class machine_details(Tk):
         Combobox(self.machineentrywindow,text = self.newsupplierval, values = self.newsupplierlist, font = 'Cambria 11 bold').grid(row = 4, column = 4)
         Entry(self.machineentrywindow, text = self.newgencodeval, state = DISABLED, width = 22, font = 'Cambria 11 bold').grid(row = 8, column = 1)
 
-        DateEntry(self.machineentrywindow, width = 12, year = 2020, month = 9, day = 26, bg = 'darkblue', fg = 'white', bd = 2).grid(row = 3, column = 5)
+        purdate = DateEntry(self.machineentrywindow, bg = 'darkblue', fg = 'white', date_pattern = 'dd/mm/y')
+        purdate.grid(row = 3, column = 5)
+        # purdate._set_text(purdate._date.strftime('%d/%m/%y'))
+        self.newmacpurdate = purdate
 
         Button(self.machineentrywindow, command = self.gencode,  text = 'Generate Code', font ='Cambria 12 bold italic', bd = 5, relief = RAISED,bg ='#c1cdc1', width = 15).grid(row = 7, columnspan = 2)
         Button(self.machineentrywindow, command = self.maccodesaved,  text = 'Confirm', font ='Cambria 12 bold italic', bd = 5, relief = RAISED,bg ='#c1cdc1', width = 10).grid(row = 9, columnspan = 2)
+        Button(self.machineentrywindow, command = self.enterdate,  text = 'Enter', font ='Cambria 12 bold italic', bd = 3, relief = RAISED,bg ='#c1cdc1', width = 5).grid(row = 3, column = 6)
 
 
     def editmachinecode(self):
@@ -134,7 +139,7 @@ class machine_details(Tk):
         self.editmacnamelist = ['Dyeing Drum', 'Compressor']
         self.editmaccodelist = ['DRM', 'CPR']
         self.editcaplist = ['800', '25.0']
-        self.editnomaclist = ['1', '1']
+        self.editnomaclist = ['01', '02']
         self.editseriallist = ['1001', '1014']
         self.editsupplierlist = ['Shaheen Enterprises', 'Western Engineering']
 
@@ -202,14 +207,3 @@ if __name__ == '__main__':
 
 
     root.mainloop()
-
-
-
-
-
-
-
-
-
-
-
