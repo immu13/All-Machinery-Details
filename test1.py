@@ -12,19 +12,27 @@ class machine_details(Tk):
         self.resizable(height=False, width=False)
         self.configure(background = '#ffffff')
 
+    # main page label
     def main_page_label(self,textinp,font, anchor):
         Label(self, text = textinp, bg ="#ffffff", fg = '#000000', font = font, anchor=anchor).pack(padx = 10)
 
+    # new purchased machine enter date button
     def enterdate(self):
         self.newpurchasedval.set(self.newmacpurdate.get_date())
+    # edit machine details enter date button
+    def entereditdate(self):
+        self.editpurchasedval.set(self.editmacpurdate.get_date())
 
+    # new entry coe generate button
     def gencode(self):
         self.newgencodeval.set(f'{self.newdivval.get()}/{self.newmaccodeval.get()}{self.newcapval.get()}-{self.newnomacval.get()}/{self.newserialval.get()}')
 
+    # new entry code save button
     def maccodesaved(self):
         with open('New Machine Code Entry.txt', 'a') as f:
             f.write(f'{self.newdivval.get()}/{self.newmaccodeval.get()}{self.newcapval.get()}/{self.newserialval.get()} - {self.newsupplierval.get()} - {self.newpurchasedval.get()}\n')
-        # if f'{self.divval.get()}/{self.maccodeval.get()}{self.capval.get()}/{self.serialval.get()}' == TRUE:
+        # if f'{self.divval.get()}/{self.    def enterdate(self):
+        #         self.newpurchasedval.set(self.newmacpurdate.get_date())maccodeval.get()}{self.capval.get()}/{self.serialval.get()}' == TRUE:
         #     tmsg.showinfo('New Machine Entry', 'New Machine Code Successfully Created')
         # else:
         #     tmsg.showinfo('New Machine Entry', 'Enter All Fields')
@@ -39,14 +47,71 @@ class machine_details(Tk):
         self.newpurchasedval.set('')
         self.newsupplierval.set('')
 
+    # edit machine detail generate code button
     def editgencode(self):
-        self.editpreviousval.set(f'{self.editoldcode.get()}')
+        self.editpreviousval.set(f'{self.editoldcodeval.get()}')
         self.editnewcodeval.set(f'{self.editdivval.get()}/{self.editmaccodeval.get()}{self.editcapval.get()}-{self.editnomacval.get()}/{self.editserialval.get()}')
 
+    # edit machine details save button
     def newcodesaved(self):
         with open('Edit Machine Details.txt', 'a') as f:
             f.write(f'{self.editpreviousval.get()}-{self.editdivval.get()}/{self.editmaccodeval.get()}{self.editcapval.get()}-{self.editnomacval.get()}/{self.editserialval.get()} - {self.editsupplierval.get()} - {self.editpurchasedval.get()}\n')
 
+        self.editdivval.set('')
+        self.editmacnameval.set('')
+        self.editmaccodeval.set('')
+        self.editcapval.set('')
+        self.editnomacval.set('')
+        self.editserialval.set('')
+        self.editpurchasedval.set('')
+        self.editsupplierval.set('')
+        self.editpreviousval.set('')
+        self.editnewcodeval.set('')
+        self.editoldcodeval.set('')
+
+    def yearlypurchase(self):
+        print(self.yearwise.get_date())
+        print(self.yearstart.get())
+        print(self.yearend.get())
+
+    # master list of machine button
+    def  tan(self):
+        self.tan = Toplevel(root)
+        self.tan.title('Master List of Machineries - Tannery')
+        self.tan.geometry('500x450')
+        self.tan.resizable(height=False, width=False)
+
+        self.yearwise = StringVar()
+
+        Label(self.tan, text="Master List of Machineries - Tannery", font='candara 12 bold', height=2).grid(row=1, columnspan = 10)
+        Checkbutton(self.tan,  text = 'Yearly Purchase Deatils', command = self.yearlypurchase, state = DISABLED, font = 'candara 12 bold', height = 2).grid(row=2, column =0)
+        Checkbutton(self.tan,  text = 'List of Tannery Machineries ', font = 'candara 12 bold', height = 2).grid(row=5, column =0)
+        Label(self.tan, text="Enter Year - From :", font='candara 12 bold', height=2, width = 15).grid(row=3, column=0)
+        Label(self.tan, text="Enter Year - To :", font='candara 12 bold', height=2, width = 15).grid(row=4, column=0)
+
+        start = DateEntry(self.tan, bg='darkblue', fg='white', date_pattern='dd/mm/y').grid(row=3, column=1)
+        end = DateEntry(self.tan, bg='darkblue', fg='white', date_pattern='dd/mm/y').grid(row=4, column=1)
+        self.yearstart = start
+        self.yearend = end
+
+        Button(self.tan, text = 'Print', font = 'candara 12 bold italic', bd = 5,relief = RAISED,bg ='#c1cdc1', width = 15).grid(row = 6, columnspan = 2)
+
+
+
+    def cut(self):
+        pass
+    def fd(self):
+        pass
+    def sd(self):
+        pass
+    def fs(self):
+        pass
+    def bug(self):
+        pass
+    def lfs(self):
+        pass
+
+    # machine entry window
     def machineentry(self):
         self.machineentrywindow = Toplevel(root)
         self.machineentrywindow.title('New Machine Entry')
@@ -103,12 +168,12 @@ class machine_details(Tk):
         Button(self.machineentrywindow, command = self.maccodesaved,  text = 'Confirm', font ='Cambria 12 bold italic', bd = 5, relief = RAISED,bg ='#c1cdc1', width = 10).grid(row = 9, columnspan = 2)
         Button(self.machineentrywindow, command = self.enterdate,  text = 'Enter', font ='Cambria 12 bold italic', bd = 3, relief = RAISED,bg ='#c1cdc1', width = 5).grid(row = 3, column = 6)
 
-
+    # edit mahcine details window
     def editmachinecode(self):
         self.editmachinecode = Toplevel(root)
         self.editmachinecode.title('Edit Machine Code')
-        self.editmachinecode.geometry('800x530')
-        self.resizable(height=False, width=False)
+        self.editmachinecode.geometry('1000x530')
+        self.editmachinecode.resizable(height=False, width=False)
 
         Label(self.editmachinecode, text='Edit Machine Details', font='Constantia 13 bold').grid(row=0, columnspan=10)
         Label(self.editmachinecode, text="Enter Machine Code", font='candara 12 bold', width=20, height=2).grid(row=1, column=0)
@@ -133,7 +198,7 @@ class machine_details(Tk):
         self.editsupplierval = StringVar()
         self.editpreviousval = StringVar()
         self.editnewcodeval = StringVar()
-        self.editoldcode = StringVar()
+        self.editoldcodeval = StringVar()
 
         self.editdivlist = ['Z1', 'Z2', 'Z3', 'Z4', 'Z5', 'Z6']
         self.editmacnamelist = ['Dyeing Drum', 'Compressor']
@@ -143,7 +208,7 @@ class machine_details(Tk):
         self.editseriallist = ['1001', '1014']
         self.editsupplierlist = ['Shaheen Enterprises', 'Western Engineering']
 
-        Entry(self.editmachinecode, text=self.editoldcode, width = 22, font = 'Cambria 11 bold').grid(row=1, column=1)
+        Entry(self.editmachinecode, text=self.editoldcodeval, width = 22, font = 'Cambria 11 bold').grid(row=1, column=1)
         Combobox(self.editmachinecode, text=self.editdivval, values=self.editdivlist, font = 'Cambria 11 bold').grid(row=2, column=1)
         Combobox(self.editmachinecode, text=self.editmacnameval, values=self.editmacnamelist, font = 'Cambria 11 bold').grid(row=3, column=1)
         Combobox(self.editmachinecode, text=self.editmaccodeval, values=self.editmaccodelist, font = 'Cambria 11 bold').grid(row=4, column=1)
@@ -155,17 +220,33 @@ class machine_details(Tk):
         Entry(self.editmachinecode, text=self.editpreviousval, state = DISABLED, width = 22, font = 'Cambria 11 bold').grid(row=9, column=1)
         Entry(self.editmachinecode, text=self.editnewcodeval, state = DISABLED, width = 22, font = 'Cambria 11 bold').grid(row=10, column=1)
 
-        Button(self.editmachinecode, command=self.editgencode, text='Generate Code', font='Cambria 12 bold italic', bd=5,
-               relief=RAISED, bg='#c1cdc1', width=15).grid(row=8, columnspan=2)
+        pureditdate = DateEntry(self.editmachinecode, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+        pureditdate.grid(row=4, column=5)
+        # purdate._set_text(purdate._date.strftime('%d/%m/%y'))
+        self.editmacpurdate = pureditdate
+
+        Button(self.editmachinecode, command=self.editgencode, text='Generate Code', font='Cambria 12 bold italic',bd=5,relief=RAISED, bg='#c1cdc1', width=15).grid(row=8, columnspan=2)
         Button(self.editmachinecode, command=self.newcodesaved, text='Confirm', font='Cambria 12 bold italic', bd=5,
                relief=RAISED, bg='#c1cdc1', width=10).grid(row=11, columnspan=2)
+        Button(self.editmachinecode, command=self.entereditdate, text='Enter', font='Cambria 12 bold italic', bd=3,
+               relief=RAISED, bg='#c1cdc1', width=5).grid(row=4, column=6)
 
-
-
+    # master list of machine window
     def masterlistmachines(self):
-        self.machineentrywindow = Toplevel(root)
-        self.machineentrywindow.title('Master List of Machineries')
-        self.machineentrywindow.geometry('999x444')
+        self.mastermachinewindow = Toplevel(root)
+        self.mastermachinewindow.title('Master List of Machineries')
+        self.mastermachinewindow.geometry('500x450')
+        self.mastermachinewindow.resizable(height=False, width=False)
+
+        Label(self.mastermachinewindow, text='Master List of Machines', font='Constantia 13 bold').pack(pady = 4)
+
+        Button(self.mastermachinewindow, command=self.tan, text='Tannery Division', font='Cambria 12 bold italic', bd=5,relief=RAISED, bg='#c1cdc1', width=20).pack(pady = 5)
+        Button(self.mastermachinewindow, command=self.cut, text='Cutting Department', font='Cambria 12 bold italic', bd=5,relief=RAISED, bg='#c1cdc1', width=20).pack(pady = 5)
+        Button(self.mastermachinewindow, command=self.fd, text='Footwear Division', font='Cambria 12 bold italic', bd=5,relief=RAISED, bg='#c1cdc1', width=20).pack(pady = 5)
+        Button(self.mastermachinewindow, command=self.sd, text='Shoe Division',font='Cambria 12 bold italic', bd=5,relief=RAISED, bg='#c1cdc1', width=20).pack(pady = 5)
+        Button(self.mastermachinewindow, command=self.fs, text='FullShoe Division',font='Cambria 12 bold italic', bd=5,relief=RAISED, bg='#c1cdc1', width=20).pack(pady = 5)
+        Button(self.mastermachinewindow, command=self.bug, text='Bugatti Division',font='Cambria 12 bold italic', bd=5,relief=RAISED, bg='#c1cdc1', width=20).pack(pady = 5)
+        Button(self.mastermachinewindow, command=self.lfs, text='Ladies FullShoe Division',font='Cambria 12 bold italic', bd=5,relief=RAISED, bg='#c1cdc1', width=20).pack(pady = 5)
 
     def machinecode(self):
         self.machineentrywindow = Toplevel(root)
