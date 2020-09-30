@@ -19,6 +19,7 @@ class machine_details(Tk):
     # new purchased machine enter date button
     def enterdate(self):
         self.newpurchasedval.set(self.newmacpurdate.get_date())
+
     # edit machine details enter date button
     def entereditdate(self):
         self.editpurchasedval.set(self.editmacpurdate.get_date())
@@ -29,13 +30,22 @@ class machine_details(Tk):
 
     # new entry code save button
     def maccodesaved(self):
+
+        # if (f'{self.newdivval.get()}/{self.newmaccodeval.get()}{self.newcapval.get()}/{self.newserialval.get()}') != '':
+        #     tmsg.showinfo('New Machine Entry', 'Enter Missing Field')
+            # if self.newmacnameval.get() != '':
+            #     tmsg.showinfo('New Machine Entry', 'Enter Missing Field')
+            #     if self.newmaccodeval.get() != '':
+            #         tmsg.showinfo('New Machine Entry', 'Enter Missing Field')
+            #         if self.newcapval.get() != '':
+            #             tmsg.showinfo('New Machine Entry', 'Enter Missing Field')
+            #             if self.newserialval.get() != '':
+            #                 tmsg.showinfo('New Machine Entry', 'Enter Missing Field')
+        # else:
+        #     tmsg.showinfo('New Machine Entry', 'New Machine Code Successfully Created')
+
         with open('New Machine Code Entry.txt', 'a') as f:
             f.write(f'{self.newdivval.get()}/{self.newmaccodeval.get()}{self.newcapval.get()}/{self.newserialval.get()} - {self.newsupplierval.get()} - {self.newpurchasedval.get()}\n')
-        # if f'{self.divval.get()}/{self.    def enterdate(self):
-        #         self.newpurchasedval.set(self.newmacpurdate.get_date())maccodeval.get()}{self.capval.get()}/{self.serialval.get()}' == TRUE:
-        #     tmsg.showinfo('New Machine Entry', 'New Machine Code Successfully Created')
-        # else:
-        #     tmsg.showinfo('New Machine Entry', 'Enter All Fields')
 
         self.newgencodeval.set('')
         self.newdivval.set('')
@@ -69,32 +79,52 @@ class machine_details(Tk):
         self.editnewcodeval.set('')
         self.editoldcodeval.set('')
 
-    def yearlypurchase(self):
-        print(self.yearwise.get_date())
-        print(self.yearstart.get())
-        print(self.yearend.get())
+    # button for printing tannnery machine list
+    def printtanlist(self):
+        if (self.var1 != TRUE):
+            Label(self.tan, text="Enter Year - From :", font='candara 12 bold', height=2, width=15).grid(row=3,column=0)
+            Label(self.tan, text="Enter Year - To :", font='candara 12 bold', height=2, width=15).grid(row=4, column=0)
+            start = DateEntry(self.tan, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            start.grid(row=3, column=1)
+            end = DateEntry(self.tan, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            end.grid(row=4, column=1)
+            self.yearstart = start
+            self.yearend = end
+            print(self.yearstart.get_date())
+            print(self.yearend.get_date())
+        else:
+            print('feeeg')
 
-    # master list of machine button
-    def  tan(self):
+
+
+
+
+
+
+# master list of machine button
+    def tan(self):
         self.tan = Toplevel(root)
         self.tan.title('Master List of Machineries - Tannery')
         self.tan.geometry('500x450')
         self.tan.resizable(height=False, width=False)
 
-        self.yearwise = StringVar()
+        self.var1 = IntVar()
+        # self.var2 = IntVar()
 
         Label(self.tan, text="Master List of Machineries - Tannery", font='candara 12 bold', height=2).grid(row=1, columnspan = 10)
-        Checkbutton(self.tan,  text = 'Yearly Purchase Deatils', command = self.yearlypurchase, state = DISABLED, font = 'candara 12 bold', height = 2).grid(row=2, column =0)
-        Checkbutton(self.tan,  text = 'List of Tannery Machineries ', font = 'candara 12 bold', height = 2).grid(row=5, column =0)
-        Label(self.tan, text="Enter Year - From :", font='candara 12 bold', height=2, width = 15).grid(row=3, column=0)
-        Label(self.tan, text="Enter Year - To :", font='candara 12 bold', height=2, width = 15).grid(row=4, column=0)
+        Checkbutton(self.tan, text = 'Yearly Purchase Details',variable = self.var1,font = 'candara 12 bold', height = 2).grid(row=2, column =0)
+        # Checkbutton(self.tan,  text = 'List of Tannery Machineries ',variable = self.var2,font = 'candara 12 bold', height = 2).grid(row=5, column =0)
+        # Label(self.tan, text="Enter Year - From :", font='candara 12 bold', height=2, width = 15).grid(row=3, column=0)
+        # Label(self.tan, text="Enter Year - To :", font='candara 12 bold', height=2, width = 15).grid(row=4, column=0)
 
-        start = DateEntry(self.tan, bg='darkblue', fg='white', date_pattern='dd/mm/y').grid(row=3, column=1)
-        end = DateEntry(self.tan, bg='darkblue', fg='white', date_pattern='dd/mm/y').grid(row=4, column=1)
-        self.yearstart = start
-        self.yearend = end
+        # start = DateEntry(self.tan, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+        # start.grid(row=3, column=1)
+        # end = DateEntry(self.tan, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+        # end.grid(row=4, column=1)
+        # self.yearstart = start
+        # self.yearend = end
 
-        Button(self.tan, text = 'Print', font = 'candara 12 bold italic', bd = 5,relief = RAISED,bg ='#c1cdc1', width = 15).grid(row = 6, columnspan = 2)
+        Button(self.tan, text = 'Print',command = self.printtanlist, font = 'candara 12 bold italic', bd = 5,relief = RAISED,bg ='#c1cdc1', width = 15).grid(row = 6, columnspan = 2)
 
 
 
