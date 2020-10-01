@@ -80,10 +80,24 @@ class machine_details(Tk):
         self.editoldcodeval.set('')
 
     # button for printing tannnery machine list
-    def printtanlist(self):
-        if (self.var1 != TRUE):
-            Label(self.tan, text="Enter Year - From :", font='candara 12 bold', height=2, width=15).grid(row=3,column=0)
-            Label(self.tan, text="Enter Year - To :", font='candara 12 bold', height=2, width=15).grid(row=4, column=0)
+    # #def printtanlist(self):
+    #     if (self.var1==0 ):
+    #         Label(self.tan, text="Enter Year - From :", font='candara 12 bold', height=2, width=15).grid(row=3,column=0)
+    #         Label(self.tan, text="Enter Year - To :", font='candara 12 bold', height=2, width=15).grid(row=4, column=0)
+    #         start = DateEntry(self.tan, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+    #         start.grid(row=3, column=1)
+    #         end = DateEntry(self.tan, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+    #         end.grid(row=4, column=1)
+    #         self.yearstart = start
+    #         self.yearend = end
+    #         print(self.yearstart.get_date())
+    #         print(self.yearend.get_date())
+    #     else:
+    #         print('feeeg')
+
+
+    def Checked(self):
+        if self.var1.get()==1:
             start = DateEntry(self.tan, bg='darkblue', fg='white', date_pattern='dd/mm/y')
             start.grid(row=3, column=1)
             end = DateEntry(self.tan, bg='darkblue', fg='white', date_pattern='dd/mm/y')
@@ -93,12 +107,14 @@ class machine_details(Tk):
             print(self.yearstart.get_date())
             print(self.yearend.get_date())
         else:
-            print('feeeg')
+            print("Else")
 
-
-
-
-
+            l1 = Label(self.tan, text="Enter Year - From :", font='candara 12 bold', height=2, width=15)
+            l1.grid(row=3, column=0)
+            l2 = Label(self.tan, text="Enter Year - To :", font='candara 12 bold', height=2, width=15)
+            l2.grid(row=4, column=0)
+            l1.grid_forget()
+            l2.grid_forget()
 
 
 # master list of machine button
@@ -112,7 +128,7 @@ class machine_details(Tk):
         # self.var2 = IntVar()
 
         Label(self.tan, text="Master List of Machineries - Tannery", font='candara 12 bold', height=2).grid(row=1, columnspan = 10)
-        Checkbutton(self.tan, text = 'Yearly Purchase Details',variable = self.var1,font = 'candara 12 bold', height = 2).grid(row=2, column =0)
+        Checkbutton(self.tan, text = 'Yearly Purchase Details',command=self.Checked ,variable = self.var1,font = 'candara 12 bold', height = 2).grid(row=2, column =0)
         # Checkbutton(self.tan,  text = 'List of Tannery Machineries ',variable = self.var2,font = 'candara 12 bold', height = 2).grid(row=5, column =0)
         # Label(self.tan, text="Enter Year - From :", font='candara 12 bold', height=2, width = 15).grid(row=3, column=0)
         # Label(self.tan, text="Enter Year - To :", font='candara 12 bold', height=2, width = 15).grid(row=4, column=0)
@@ -124,7 +140,7 @@ class machine_details(Tk):
         # self.yearstart = start
         # self.yearend = end
 
-        Button(self.tan, text = 'Print',command = self.printtanlist, font = 'candara 12 bold italic', bd = 5,relief = RAISED,bg ='#c1cdc1', width = 15).grid(row = 6, columnspan = 2)
+        #Button(self.tan, text = 'Print',command = self.printtanlist, font = 'candara 12 bold italic', bd = 5,relief = RAISED,bg ='#c1cdc1', width = 15).grid(row = 6, columnspan = 2)
 
 
 
