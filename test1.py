@@ -79,83 +79,158 @@ class machine_details(Tk):
         self.editnewcodeval.set('')
         self.editoldcodeval.set('')
 
-    # button for printing tannnery machine list
-    # #def printtanlist(self):
-    #     if (self.var1==0 ):
-    #         Label(self.tan, text="Enter Year - From :", font='candara 12 bold', height=2, width=15).grid(row=3,column=0)
-    #         Label(self.tan, text="Enter Year - To :", font='candara 12 bold', height=2, width=15).grid(row=4, column=0)
-    #         start = DateEntry(self.tan, bg='darkblue', fg='white', date_pattern='dd/mm/y')
-    #         start.grid(row=3, column=1)
-    #         end = DateEntry(self.tan, bg='darkblue', fg='white', date_pattern='dd/mm/y')
-    #         end.grid(row=4, column=1)
-    #         self.yearstart = start
-    #         self.yearend = end
-    #         print(self.yearstart.get_date())
-    #         print(self.yearend.get_date())
-    #     else:
-    #         print('feeeg')
 
-
+    # checkbutton command for printing tannery machinery list
     def Checked(self):
-        if self.var1.get()==1:
+        if self.var1.get() == 0:
+            l1 = Label(self.tan, text="Enter Year - From :", font='candara 12 bold', height=2, width=15)
+            l1.grid(row=3, column=0)
+            l1.config(state = DISABLED)
+
+            l2 = Label(self.tan, text="Enter Year - To :", font='candara 12 bold', height=2, width=15)
+            l2.grid(row=4, column=0)
+            l2.config(state=DISABLED)
+
             start = DateEntry(self.tan, bg='darkblue', fg='white', date_pattern='dd/mm/y')
             start.grid(row=3, column=1)
+            start.config(state=DISABLED)
+            self.startdate = start
+
             end = DateEntry(self.tan, bg='darkblue', fg='white', date_pattern='dd/mm/y')
             end.grid(row=4, column=1)
-            self.yearstart = start
-            self.yearend = end
-            print(self.yearstart.get_date())
-            print(self.yearend.get_date())
-        else:
-            print("Else")
+            end.config(state=DISABLED)
+            self.enddate = end
 
+        else:
             l1 = Label(self.tan, text="Enter Year - From :", font='candara 12 bold', height=2, width=15)
             l1.grid(row=3, column=0)
             l2 = Label(self.tan, text="Enter Year - To :", font='candara 12 bold', height=2, width=15)
             l2.grid(row=4, column=0)
-            l1.grid_forget()
-            l2.grid_forget()
+            start = DateEntry(self.tan, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            start.grid(row=3, column=1)
+            self.startdate = start
+            end = DateEntry(self.tan, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            end.grid(row=4, column=1)
+            self.enddate = end
 
+    # button for printing tannnery machine list
+    def printtanlist(self):
+        self.newmacnamelist = ['Dyeing Drum', 'Compressor']
+        if self.var1.get() == 1:
+            print(self.startdate.get_date())
+            print(self.enddate.get_date())
+        else:
+            print(self.newmacnamelist)
 
 # master list of machine button
     def tan(self):
         self.tan = Toplevel(root)
-        self.tan.title('Master List of Machineries - Tannery')
+        self.tan.title('Master List of Machineries - Tannery Division')
         self.tan.geometry('500x450')
         self.tan.resizable(height=False, width=False)
 
         self.var1 = IntVar()
-        # self.var2 = IntVar()
 
         Label(self.tan, text="Master List of Machineries - Tannery", font='candara 12 bold', height=2).grid(row=1, columnspan = 10)
         Checkbutton(self.tan, text = 'Yearly Purchase Details',command=self.Checked ,variable = self.var1,font = 'candara 12 bold', height = 2).grid(row=2, column =0)
-        # Checkbutton(self.tan,  text = 'List of Tannery Machineries ',variable = self.var2,font = 'candara 12 bold', height = 2).grid(row=5, column =0)
-        # Label(self.tan, text="Enter Year - From :", font='candara 12 bold', height=2, width = 15).grid(row=3, column=0)
-        # Label(self.tan, text="Enter Year - To :", font='candara 12 bold', height=2, width = 15).grid(row=4, column=0)
 
-        # start = DateEntry(self.tan, bg='darkblue', fg='white', date_pattern='dd/mm/y')
-        # start.grid(row=3, column=1)
-        # end = DateEntry(self.tan, bg='darkblue', fg='white', date_pattern='dd/mm/y')
-        # end.grid(row=4, column=1)
-        # self.yearstart = start
-        # self.yearend = end
-
-        #Button(self.tan, text = 'Print',command = self.printtanlist, font = 'candara 12 bold italic', bd = 5,relief = RAISED,bg ='#c1cdc1', width = 15).grid(row = 6, columnspan = 2)
-
-
+        Button(self.tan, text = 'Print',command = self.printtanlist, font = 'candara 12 bold italic', bd = 5,relief = RAISED,bg ='#c1cdc1', width = 15).grid(row = 6, columnspan = 2)
 
     def cut(self):
-        pass
+        self.cut = Toplevel(root)
+        self.cut.title('Master List of Machineries - Cutting Department')
+        self.cut.geometry('500x450')
+        self.cut.resizable(height=False, width=False)
+
+        self.var1 = IntVar()
+
+        Label(self.cut, text="Master List of Machineries - Tannery", font='candara 12 bold', height=2).grid(row=1,
+                                                                                                            columnspan=10)
+        Checkbutton(self.cut, text='Yearly Purchase Details', command=self.Checked, variable=self.var1,
+                    font='candara 12 bold', height=2).grid(row=2, column=0)
+
+        Button(self.cut, text='Print', command=self.printtanlist, font='candara 12 bold italic', bd=5, relief=RAISED,
+               bg='#c1cdc1', width=15).grid(row=6, columnspan=2)
+
     def fd(self):
-        pass
+        self.fd = Toplevel(root)
+        self.fd.title('Master List of Machineries - Footwear Division')
+        self.fd.geometry('500x450')
+        self.fd.resizable(height=False, width=False)
+
+        self.var1 = IntVar()
+
+        Label(self.fd, text="Master List of Machineries - Tannery", font='candara 12 bold', height=2).grid(row=1,
+                                                                                                            columnspan=10)
+        Checkbutton(self.fd, text='Yearly Purchase Details', command=self.Checked, variable=self.var1,
+                    font='candara 12 bold', height=2).grid(row=2, column=0)
+
+        Button(self.fd, text='Print', command=self.printtanlist, font='candara 12 bold italic', bd=5, relief=RAISED,
+               bg='#c1cdc1', width=15).grid(row=6, columnspan=2)
+
     def sd(self):
-        pass
+        self.sd = Toplevel(root)
+        self.sd.title('Master List of Machineries - Shoe Division')
+        self.sd.geometry('500x450')
+        self.sd.resizable(height=False, width=False)
+
+        self.var1 = IntVar()
+
+        Label(self.sd, text="Master List of Machineries - Tannery", font='candara 12 bold', height=2).grid(row=1,
+                                                                                                            columnspan=10)
+        Checkbutton(self.sd, text='Yearly Purchase Details', command=self.Checked, variable=self.var1,
+                    font='candara 12 bold', height=2).grid(row=2, column=0)
+
+        Button(self.sd, text='Print', command=self.printtanlist, font='candara 12 bold italic', bd=5, relief=RAISED,
+               bg='#c1cdc1', width=15).grid(row=6, columnspan=2)
+
     def fs(self):
-        pass
+        self.fs = Toplevel(root)
+        self.fs.title('Master List of Machineries - FullShoe Division')
+        self.fs.geometry('500x450')
+        self.fs.resizable(height=False, width=False)
+
+        self.var1 = IntVar()
+
+        Label(self.fs, text="Master List of Machineries - Tannery", font='candara 12 bold', height=2).grid(row=1,
+                                                                                                            columnspan=10)
+        Checkbutton(self.fs, text='Yearly Purchase Details', command=self.Checked, variable=self.var1,
+                    font='candara 12 bold', height=2).grid(row=2, column=0)
+
+        Button(self.fs, text='Print', command=self.printtanlist, font='candara 12 bold italic', bd=5, relief=RAISED,
+               bg='#c1cdc1', width=15).grid(row=6, columnspan=2)
+
     def bug(self):
-        pass
+        self.bug = Toplevel(root)
+        self.bug.title('Master List of Machineries - Bugatti')
+        self.bug.geometry('500x450')
+        self.bug.resizable(height=False, width=False)
+
+        self.var1 = IntVar()
+
+        Label(self.bug, text="Master List of Machineries - Tannery", font='candara 12 bold', height=2).grid(row=1,
+                                                                                                            columnspan=10)
+        Checkbutton(self.bug, text='Yearly Purchase Details', command=self.Checked, variable=self.var1,
+                    font='candara 12 bold', height=2).grid(row=2, column=0)
+
+        Button(self.bug, text='Print', command=self.printtanlist, font='candara 12 bold italic', bd=5, relief=RAISED,
+               bg='#c1cdc1', width=15).grid(row=6, columnspan=2)
+
     def lfs(self):
-        pass
+        self.lfs = Toplevel(root)
+        self.lfs.title('Master List of Machineries - Ladies FUllShoe Division')
+        self.lfs.geometry('500x450')
+        self.lfs.resizable(height=False, width=False)
+
+        self.var1 = IntVar()
+
+        Label(self.lfs, text="Master List of Machineries - Tannery", font='candara 12 bold', height=2).grid(row=1,
+                                                                                                            columnspan=10)
+        Checkbutton(self.lfs, text='Yearly Purchase Details', command=self.Checked, variable=self.var1,
+                    font='candara 12 bold', height=2).grid(row=2, column=0)
+
+        Button(self.lfs, text='Print', command=self.printlfslist, font='candara 12 bold italic', bd=5, relief=RAISED,
+               bg='#c1cdc1', width=15).grid(row=6, columnspan=2)
 
     # machine entry window
     def machineentry(self):
