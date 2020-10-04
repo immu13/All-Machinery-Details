@@ -1,20 +1,62 @@
-
+from os import times
 from tkinter import *
 from tkcalendar import DateEntry
 from tkinter.ttk import Combobox
 import tkinter.messagebox as tmsg
+import time
 
 class machine_details(Tk):
     def __init__(self):
         super().__init__()
         self.title('Machinery Details')
-        self.geometry('666x500')
+        self.geometry('666x480')
         self.resizable(height=False, width=False)
         self.configure(background = '#ffffff')
+
+    # main page date widget
+    def times(self):
+        current_time = time.strftime('%H:%M:%S')
+        self.l1.config(text = current_time)
+        self.l1.after(200, times)
+
+    # main page help menu command
+    def Help(self):
+        tmsg.showinfo("Help", 'Contact Mr. Imran Khan - +91 9025925441')
+
 
     # main page label
     def main_page_label(self,textinp,font, anchor):
         Label(self, text = textinp, bg ="#ffffff", fg = '#000000', font = font, anchor=anchor).pack(padx = 10)
+
+    # main page frame
+    def main_page_frame(self):
+        f1 = Frame(self, bg = '#36648c', height = 25)
+        f1.pack(side =  BOTTOM, fill = X)
+
+        self.l2 = Label(f1, text='Time:', font="constantia 11 bold italic", bg='#36648c', fg='white')
+        self.l2.pack(side=LEFT)
+
+        self.l1 = Label(f1, font = 'constantia 11 bold ', bg = '#36648c', fg = 'white')
+        self.l1.pack(side = LEFT, padx = 3)
+
+        self.l3 = Label(f1, text = 'Designed by Imran Khan', font='constantia 11 bold italic', bg='#36648c', fg='white')
+        self.l3.pack(side = LEFT, padx = 115)
+
+        self.l3 = Label(f1, text='Date:', font='constantia 11 bold italic', bg='#36648c', fg='white')
+        self.l3.pack(side=LEFT, padx=2)
+
+        self.mainpage_date = DateEntry(f1, bg='#36648c', fg='black', date_pattern='dd/mm/y')
+        self.mainpage_date.pack(side = RIGHT)
+        self.mainpage_date.config(state=DISABLED)
+
+    # mai page help function
+    def help_window(self):
+        main_menu = Menu(self)
+        help_menudrop =Menu(main_menu, tearoff = 0)
+        help_menudrop.add_command(label = 'Help', command = self.Help)
+        root.config(menu = main_menu)
+        main_menu.add_cascade(label = 'Help', menu = help_menudrop)
+
 
     # new purchased machine enter date button
     def enterdate(self):
@@ -30,32 +72,32 @@ class machine_details(Tk):
 
     # new entry code save button
     def maccodesaved(self):
+        if self.newdivval.get() == '':
+            tmsg.showinfo('New Machine Entry', 'Enter Missing Field')
+        elif self.newmacnameval.get() == '':
+            tmsg.showinfo('New Machine Entry', 'Enter Missing Field')
+        elif self.newmaccodeval.get() == '':
+            tmsg.showinfo('New Machine Entry', 'Enter Missing Field')
+        elif self.newcapval.get() == '':
+            tmsg.showinfo('New Machine Entry', 'Enter Missing Field')
+        elif self.newnomacval.get() == '':
+            tmsg.showinfo('New Machine Entry', 'Enter Missing Field')
+        elif self.newserialval.get() == '':
+            tmsg.showinfo('New Machine Entry', 'Enter Missing Field')
+        else:
+            tmsg.showinfo('New Machine Entry', 'New Machine Code Successfully Created')
+            with open('New Machine Code Entry.txt', 'a') as f:
+                f.write(f'{self.newdivval.get()}/{self.newmaccodeval.get()}{self.newcapval.get()}/{self.newserialval.get()} - {self.newsupplierval.get()} - {self.newpurchasedval.get()}\n')
 
-        # if (f'{self.newdivval.get()}/{self.newmaccodeval.get()}{self.newcapval.get()}/{self.newserialval.get()}') != '':
-        #     tmsg.showinfo('New Machine Entry', 'Enter Missing Field')
-            # if self.newmacnameval.get() != '':
-            #     tmsg.showinfo('New Machine Entry', 'Enter Missing Field')
-            #     if self.newmaccodeval.get() != '':
-            #         tmsg.showinfo('New Machine Entry', 'Enter Missing Field')
-            #         if self.newcapval.get() != '':
-            #             tmsg.showinfo('New Machine Entry', 'Enter Missing Field')
-            #             if self.newserialval.get() != '':
-            #                 tmsg.showinfo('New Machine Entry', 'Enter Missing Field')
-        # else:
-        #     tmsg.showinfo('New Machine Entry', 'New Machine Code Successfully Created')
-
-        with open('New Machine Code Entry.txt', 'a') as f:
-            f.write(f'{self.newdivval.get()}/{self.newmaccodeval.get()}{self.newcapval.get()}/{self.newserialval.get()} - {self.newsupplierval.get()} - {self.newpurchasedval.get()}\n')
-
-        self.newgencodeval.set('')
-        self.newdivval.set('')
-        self.newmaccodeval.set('')
-        self.newmacnameval.set('')
-        self.newcapval.set('')
-        self.newnomacval.set('')
-        self.newserialval.set('')
-        self.newpurchasedval.set('')
-        self.newsupplierval.set('')
+                self.newgencodeval.set('')
+                self.newdivval.set('')
+                self.newmaccodeval.set('')
+                self.newmacnameval.set('')
+                self.newcapval.set('')
+                self.newnomacval.set('')
+                self.newserialval.set('')
+                self.newpurchasedval.set('')
+                self.newsupplierval.set('')
 
     # edit machine detail generate code button
     def editgencode(self):
@@ -64,24 +106,39 @@ class machine_details(Tk):
 
     # edit machine details save button
     def newcodesaved(self):
-        with open('Edit Machine Details.txt', 'a') as f:
-            f.write(f'{self.editpreviousval.get()}-{self.editdivval.get()}/{self.editmaccodeval.get()}{self.editcapval.get()}-{self.editnomacval.get()}/{self.editserialval.get()} - {self.editsupplierval.get()} - {self.editpurchasedval.get()}\n')
+        if self.editdivval.get() == '':
+            tmsg.showinfo('New Machine Entry', 'Enter Missing Field')
+        elif self.editmacnameval.get() == '':
+            tmsg.showinfo('New Machine Entry', 'Enter Missing Field')
+        elif self.editmaccodeval.get() == '':
+            tmsg.showinfo('New Machine Entry', 'Enter Missing Field')
+        elif self.editcapval.get() == '':
+            tmsg.showinfo('New Machine Entry', 'Enter Missing Field')
+        elif self.editnomacval.get() == '':
+            tmsg.showinfo('New Machine Entry', 'Enter Missing Field')
+        elif self.editserialval.get() == '':
+            tmsg.showinfo('New Machine Entry', 'Enter Missing Field')
+        else:
+            tmsg.showinfo('New Machine Entry', 'New Machine Code Successfully Created')
 
-        self.editdivval.set('')
-        self.editmacnameval.set('')
-        self.editmaccodeval.set('')
-        self.editcapval.set('')
-        self.editnomacval.set('')
-        self.editserialval.set('')
-        self.editpurchasedval.set('')
-        self.editsupplierval.set('')
-        self.editpreviousval.set('')
-        self.editnewcodeval.set('')
-        self.editoldcodeval.set('')
+            with open('Edit Machine Details.txt', 'a') as f:
+                f.write(f'{self.editpreviousval.get()}-{self.editdivval.get()}/{self.editmaccodeval.get()}{self.editcapval.get()}-{self.editnomacval.get()}/{self.editserialval.get()} - {self.editsupplierval.get()} - {self.editpurchasedval.get()}\n')
+
+                self.editdivval.set('')
+                self.editmacnameval.set('')
+                self.editmaccodeval.set('')
+                self.editcapval.set('')
+                self.editnomacval.set('')
+                self.editserialval.set('')
+                self.editpurchasedval.set('')
+                self.editsupplierval.set('')
+                self.editpreviousval.set('')
+                self.editnewcodeval.set('')
+                self.editoldcodeval.set('')
 
 
     # checkbutton command for printing tannery machinery list
-    def Checked(self):
+    def tanChecked(self):
         if self.var1.get() == 0:
             l1 = Label(self.tan, text="Enter Year - From :", font='candara 12 bold', height=2, width=15)
             l1.grid(row=3, column=0)
@@ -122,6 +179,260 @@ class machine_details(Tk):
         else:
             print(self.newmacnamelist)
 
+    # checkbutton command for printing cutting machinery list
+    def cutChecked(self):
+        if self.var1.get() == 0:
+            l1 = Label(self.cut, text="Enter Year - From :", font='candara 12 bold', height=2, width=15)
+            l1.grid(row=3, column=0)
+            l1.config(state = DISABLED)
+
+            l2 = Label(self.cut, text="Enter Year - To :", font='candara 12 bold', height=2, width=15)
+            l2.grid(row=4, column=0)
+            l2.config(state=DISABLED)
+
+            start = DateEntry(self.cut, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            start.grid(row=3, column=1)
+            start.config(state=DISABLED)
+            self.startdate = start
+
+            end = DateEntry(self.cut, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            end.grid(row=4, column=1)
+            end.config(state=DISABLED)
+            self.enddate = end
+
+        else:
+            l1 = Label(self.cut, text="Enter Year - From :", font='candara 12 bold', height=2, width=15)
+            l1.grid(row=3, column=0)
+            l2 = Label(self.cut, text="Enter Year - To :", font='candara 12 bold', height=2, width=15)
+            l2.grid(row=4, column=0)
+            start = DateEntry(self.cut, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            start.grid(row=3, column=1)
+            self.startdate = start
+            end = DateEntry(self.cut, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            end.grid(row=4, column=1)
+            self.enddate = end
+
+    # button for printing cutting machine list
+    def printcutlist(self):
+        self.newmacnamelist = ['Dyeing Drum', 'Compressor']
+        if self.var1.get() == 1:
+            print(self.startdate.get_date())
+            print(self.enddate.get_date())
+        else:
+            print(self.newmacnamelist)
+
+    # checkbutton command for printing tannery machinery list
+    def fdChecked(self):
+        if self.var1.get() == 0:
+            l1 = Label(self.fd, text="Enter Year - From :", font='candara 12 bold', height=2, width=15)
+            l1.grid(row=3, column=0)
+            l1.config(state = DISABLED)
+
+            l2 = Label(self.fd, text="Enter Year - To :", font='candara 12 bold', height=2, width=15)
+            l2.grid(row=4, column=0)
+            l2.config(state=DISABLED)
+
+            start = DateEntry(self.fd, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            start.grid(row=3, column=1)
+            start.config(state=DISABLED)
+            self.startdate = start
+
+            end = DateEntry(self.fd, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            end.grid(row=4, column=1)
+            end.config(state=DISABLED)
+            self.enddate = end
+
+        else:
+            l1 = Label(self.fd, text="Enter Year - From :", font='candara 12 bold', height=2, width=15)
+            l1.grid(row=3, column=0)
+            l2 = Label(self.fd, text="Enter Year - To :", font='candara 12 bold', height=2, width=15)
+            l2.grid(row=4, column=0)
+            start = DateEntry(self.fd, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            start.grid(row=3, column=1)
+            self.startdate = start
+            end = DateEntry(self.fd, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            end.grid(row=4, column=1)
+            self.enddate = end
+
+
+    # button for printing fd machine list
+    def printfdlist(self):
+        self.newmacnamelist = ['Dyeing Drum', 'Compressor']
+        if self.var1.get() == 1:
+            print(self.startdate.get_date())
+            print(self.enddate.get_date())
+        else:
+            print(self.newmacnamelist)
+
+    # checkbutton command for printing sd machinery list
+    def sdChecked(self):
+        if self.var1.get() == 0:
+            l1 = Label(self.sd, text="Enter Year - From :", font='candara 12 bold', height=2, width=15)
+            l1.grid(row=3, column=0)
+            l1.config(state = DISABLED)
+
+            l2 = Label(self.sd, text="Enter Year - To :", font='candara 12 bold', height=2, width=15)
+            l2.grid(row=4, column=0)
+            l2.config(state=DISABLED)
+
+            start = DateEntry(self.sd, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            start.grid(row=3, column=1)
+            start.config(state=DISABLED)
+            self.startdate = start
+
+            end = DateEntry(self.sd, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            end.grid(row=4, column=1)
+            end.config(state=DISABLED)
+            self.enddate = end
+
+        else:
+            l1 = Label(self.sd, text="Enter Year - From :", font='candara 12 bold', height=2, width=15)
+            l1.grid(row=3, column=0)
+            l2 = Label(self.sd, text="Enter Year - To :", font='candara 12 bold', height=2, width=15)
+            l2.grid(row=4, column=0)
+            start = DateEntry(self.sd, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            start.grid(row=3, column=1)
+            self.startdate = start
+            end = DateEntry(self.sd, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            end.grid(row=4, column=1)
+            self.enddate = end
+
+    # button for printing sd machine list
+    def printsdlist(self):
+        self.newmacnamelist = ['Dyeing Drum', 'Compressor']
+        if self.var1.get() == 1:
+            print(self.startdate.get_date())
+            print(self.enddate.get_date())
+        else:
+            print(self.newmacnamelist)
+
+    # checkbutton command for printing fs machinery list
+    def fsChecked(self):
+        if self.var1.get() == 0:
+            l1 = Label(self.fs, text="Enter Year - From :", font='candara 12 bold', height=2, width=15)
+            l1.grid(row=3, column=0)
+            l1.config(state = DISABLED)
+
+            l2 = Label(self.fs, text="Enter Year - To :", font='candara 12 bold', height=2, width=15)
+            l2.grid(row=4, column=0)
+            l2.config(state=DISABLED)
+
+            start = DateEntry(self.fs, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            start.grid(row=3, column=1)
+            start.config(state=DISABLED)
+            self.startdate = start
+
+            end = DateEntry(self.fs, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            end.grid(row=4, column=1)
+            end.config(state=DISABLED)
+            self.enddate = end
+
+        else:
+            l1 = Label(self.fs, text="Enter Year - From :", font='candara 12 bold', height=2, width=15)
+            l1.grid(row=3, column=0)
+            l2 = Label(self.fs, text="Enter Year - To :", font='candara 12 bold', height=2, width=15)
+            l2.grid(row=4, column=0)
+            start = DateEntry(self.fs, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            start.grid(row=3, column=1)
+            self.startdate = start
+            end = DateEntry(self.fs, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            end.grid(row=4, column=1)
+            self.enddate = end
+
+    # button for printing fs machine list
+    def printfslist(self):
+        self.newmacnamelist = ['Dyeing Drum', 'Compressor']
+        if self.var1.get() == 1:
+            print(self.startdate.get_date())
+            print(self.enddate.get_date())
+        else:
+            print(self.newmacnamelist)
+
+    # checkbutton command for printing bug machinery list
+    def bugChecked(self):
+        if self.var1.get() == 0:
+            l1 = Label(self.bug, text="Enter Year - From :", font='candara 12 bold', height=2, width=15)
+            l1.grid(row=3, column=0)
+            l1.config(state = DISABLED)
+
+            l2 = Label(self.bug, text="Enter Year - To :", font='candara 12 bold', height=2, width=15)
+            l2.grid(row=4, column=0)
+            l2.config(state=DISABLED)
+
+            start = DateEntry(self.bug, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            start.grid(row=3, column=1)
+            start.config(state=DISABLED)
+            self.startdate = start
+
+            end = DateEntry(self.bug, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            end.grid(row=4, column=1)
+            end.config(state=DISABLED)
+            self.enddate = end
+
+        else:
+            l1 = Label(self.bug, text="Enter Year - From :", font='candara 12 bold', height=2, width=15)
+            l1.grid(row=3, column=0)
+            l2 = Label(self.bug, text="Enter Year - To :", font='candara 12 bold', height=2, width=15)
+            l2.grid(row=4, column=0)
+            start = DateEntry(self.bug, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            start.grid(row=3, column=1)
+            self.startdate = start
+            end = DateEntry(self.bug, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            end.grid(row=4, column=1)
+            self.enddate = end
+
+    # button for printing bug machine list
+    def printbuglist(self):
+        self.newmacnamelist = ['Dyeing Drum', 'Compressor']
+        if self.var1.get() == 1:
+            print(self.startdate.get_date())
+            print(self.enddate.get_date())
+        else:
+            print(self.newmacnamelist)
+
+    # checkbutton command for printing lfs machinery list
+    def lfsChecked(self):
+        if self.var1.get() == 0:
+            l1 = Label(self.lfs, text="Enter Year - From :", font='candara 12 bold', height=2, width=15)
+            l1.grid(row=3, column=0)
+            l1.config(state = DISABLED)
+
+            l2 = Label(self.lfs, text="Enter Year - To :", font='candara 12 bold', height=2, width=15)
+            l2.grid(row=4, column=0)
+            l2.config(state=DISABLED)
+
+            start = DateEntry(self.lfs, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            start.grid(row=3, column=1)
+            start.config(state=DISABLED)
+            self.startdate = start
+
+            end = DateEntry(self.lfs, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            end.grid(row=4, column=1)
+            end.config(state=DISABLED)
+            self.enddate = end
+
+        else:
+            l1 = Label(self.lfs, text="Enter Year - From :", font='candara 12 bold', height=2, width=15)
+            l1.grid(row=3, column=0)
+            l2 = Label(self.lfs, text="Enter Year - To :", font='candara 12 bold', height=2, width=15)
+            l2.grid(row=4, column=0)
+            start = DateEntry(self.lfs, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            start.grid(row=3, column=1)
+            self.startdate = start
+            end = DateEntry(self.lfs, bg='darkblue', fg='white', date_pattern='dd/mm/y')
+            end.grid(row=4, column=1)
+            self.enddate = end
+
+    # button for printing lfs machine list
+    def printlfslist(self):
+        self.newmacnamelist = ['Dyeing Drum', 'Compressor']
+        if self.var1.get() == 1:
+            print(self.startdate.get_date())
+            print(self.enddate.get_date())
+        else:
+            print(self.newmacnamelist)
+
+
 # master list of machine button
     def tan(self):
         self.tan = Toplevel(root)
@@ -131,10 +442,10 @@ class machine_details(Tk):
 
         self.var1 = IntVar()
 
-        Label(self.tan, text="Master List of Machineries - Tannery", font='candara 12 bold', height=2).grid(row=1, columnspan = 10)
-        Checkbutton(self.tan, text = 'Yearly Purchase Details',command=self.Checked ,variable = self.var1,font = 'candara 12 bold', height = 2).grid(row=2, column =0)
+        Label(self.tan, text="Master List of Machineries - Tannery", font='candara 12 bold underline', height=2).grid(row=1, columnspan = 3)
+        Checkbutton(self.tan, text = 'Yearly Purchase Details',command=self.tanChecked ,variable = self.var1,font = 'candara 12 bold', height = 2).grid(row=2, column =0)
 
-        Button(self.tan, text = 'Print',command = self.printtanlist, font = 'candara 12 bold italic', bd = 5,relief = RAISED,bg ='#c1cdc1', width = 15).grid(row = 6, columnspan = 2)
+        Button(self.tan, text = 'Print',command = self.printtanlist, font = 'candara 12 bold italic', bd = 5,relief = RAISED,bg ='#36648c',fg ='#ffffff', width = 15).grid(row = 6, columnspan = 2)
 
     def cut(self):
         self.cut = Toplevel(root)
@@ -144,13 +455,13 @@ class machine_details(Tk):
 
         self.var1 = IntVar()
 
-        Label(self.cut, text="Master List of Machineries - Tannery", font='candara 12 bold', height=2).grid(row=1,
+        Label(self.cut, text="Master List of Machineries - Cutting Department", font='candara 12 bold', height=2).grid(row=1,
                                                                                                             columnspan=10)
-        Checkbutton(self.cut, text='Yearly Purchase Details', command=self.Checked, variable=self.var1,
+        Checkbutton(self.cut, text='Yearly Purchase Details', command=self.cutChecked, variable=self.var1,
                     font='candara 12 bold', height=2).grid(row=2, column=0)
 
-        Button(self.cut, text='Print', command=self.printtanlist, font='candara 12 bold italic', bd=5, relief=RAISED,
-               bg='#c1cdc1', width=15).grid(row=6, columnspan=2)
+        Button(self.cut, text='Print', command=self.printcutlist, font='candara 12 bold italic', bd=5, relief=RAISED,
+               bg='#36648c',fg ='#ffffff', width=15).grid(row=6, columnspan=2)
 
     def fd(self):
         self.fd = Toplevel(root)
@@ -160,13 +471,13 @@ class machine_details(Tk):
 
         self.var1 = IntVar()
 
-        Label(self.fd, text="Master List of Machineries - Tannery", font='candara 12 bold', height=2).grid(row=1,
+        Label(self.fd, text="Master List of Machineries - Footwear Division", font='candara 12 bold', height=2).grid(row=1,
                                                                                                             columnspan=10)
-        Checkbutton(self.fd, text='Yearly Purchase Details', command=self.Checked, variable=self.var1,
+        Checkbutton(self.fd, text='Yearly Purchase Details', command=self.fdChecked, variable=self.var1,
                     font='candara 12 bold', height=2).grid(row=2, column=0)
 
-        Button(self.fd, text='Print', command=self.printtanlist, font='candara 12 bold italic', bd=5, relief=RAISED,
-               bg='#c1cdc1', width=15).grid(row=6, columnspan=2)
+        Button(self.fd, text='Print', command=self.printfdlist, font='candara 12 bold italic', bd=5, relief=RAISED,
+               bg='#36648c',fg ='#ffffff', width=15).grid(row=6, columnspan=2)
 
     def sd(self):
         self.sd = Toplevel(root)
@@ -176,13 +487,13 @@ class machine_details(Tk):
 
         self.var1 = IntVar()
 
-        Label(self.sd, text="Master List of Machineries - Tannery", font='candara 12 bold', height=2).grid(row=1,
+        Label(self.sd, text="Master List of Machineries - Shoe Division", font='candara 12 bold', height=2).grid(row=1,
                                                                                                             columnspan=10)
-        Checkbutton(self.sd, text='Yearly Purchase Details', command=self.Checked, variable=self.var1,
+        Checkbutton(self.sd, text='Yearly Purchase Details', command=self.sdChecked, variable=self.var1,
                     font='candara 12 bold', height=2).grid(row=2, column=0)
 
-        Button(self.sd, text='Print', command=self.printtanlist, font='candara 12 bold italic', bd=5, relief=RAISED,
-               bg='#c1cdc1', width=15).grid(row=6, columnspan=2)
+        Button(self.sd, text='Print', command=self.printsdlist, font='candara 12 bold italic', bd=5, relief=RAISED,
+               bg='#36648c',fg ='#ffffff', width=15).grid(row=6, columnspan=2)
 
     def fs(self):
         self.fs = Toplevel(root)
@@ -192,13 +503,13 @@ class machine_details(Tk):
 
         self.var1 = IntVar()
 
-        Label(self.fs, text="Master List of Machineries - Tannery", font='candara 12 bold', height=2).grid(row=1,
+        Label(self.fs, text="Master List of Machineries - FullShoe Division", font='candara 12 bold', height=2).grid(row=1,
                                                                                                             columnspan=10)
-        Checkbutton(self.fs, text='Yearly Purchase Details', command=self.Checked, variable=self.var1,
+        Checkbutton(self.fs, text='Yearly Purchase Details', command=self.fsChecked, variable=self.var1,
                     font='candara 12 bold', height=2).grid(row=2, column=0)
 
-        Button(self.fs, text='Print', command=self.printtanlist, font='candara 12 bold italic', bd=5, relief=RAISED,
-               bg='#c1cdc1', width=15).grid(row=6, columnspan=2)
+        Button(self.fs, text='Print', command=self.printfslist, font='candara 12 bold italic', bd=5, relief=RAISED,
+               bg='#36648c',fg ='#ffffff', width=15).grid(row=6, columnspan=2)
 
     def bug(self):
         self.bug = Toplevel(root)
@@ -208,13 +519,13 @@ class machine_details(Tk):
 
         self.var1 = IntVar()
 
-        Label(self.bug, text="Master List of Machineries - Tannery", font='candara 12 bold', height=2).grid(row=1,
+        Label(self.bug, text="Master List of Machineries - Bugatti Division", font='candara 12 bold', height=2).grid(row=1,
                                                                                                             columnspan=10)
-        Checkbutton(self.bug, text='Yearly Purchase Details', command=self.Checked, variable=self.var1,
+        Checkbutton(self.bug, text='Yearly Purchase Details', command=self.bugChecked, variable=self.var1,
                     font='candara 12 bold', height=2).grid(row=2, column=0)
 
-        Button(self.bug, text='Print', command=self.printtanlist, font='candara 12 bold italic', bd=5, relief=RAISED,
-               bg='#c1cdc1', width=15).grid(row=6, columnspan=2)
+        Button(self.bug, text='Print', command=self.printbuglist, font='candara 12 bold italic', bd=5, relief=RAISED,
+               bg='#36648c',fg ='#ffffff', width=15).grid(row=6, columnspan=2)
 
     def lfs(self):
         self.lfs = Toplevel(root)
@@ -224,15 +535,15 @@ class machine_details(Tk):
 
         self.var1 = IntVar()
 
-        Label(self.lfs, text="Master List of Machineries - Tannery", font='candara 12 bold', height=2).grid(row=1,
+        Label(self.lfs, text="Master List of Machineries - Ladies FullShoe Division", font='candara 12 bold', height=2).grid(row=1,
                                                                                                             columnspan=10)
-        Checkbutton(self.lfs, text='Yearly Purchase Details', command=self.Checked, variable=self.var1,
+        Checkbutton(self.lfs, text='Yearly Purchase Details', command=self.lfsChecked, variable=self.var1,
                     font='candara 12 bold', height=2).grid(row=2, column=0)
 
         Button(self.lfs, text='Print', command=self.printlfslist, font='candara 12 bold italic', bd=5, relief=RAISED,
-               bg='#c1cdc1', width=15).grid(row=6, columnspan=2)
+               bg='#36648c',fg ='#ffffff', width=15).grid(row=6, columnspan=2)
 
-    # machine entry window
+    # new machine entry window
     def machineentry(self):
         self.machineentrywindow = Toplevel(root)
         self.machineentrywindow.title('New Machine Entry')
@@ -247,7 +558,7 @@ class machine_details(Tk):
         Label(self.machineentrywindow, text = "Capacity", font = 'candara 12 bold',width = 20, height = 2).grid(row = 4, column = 0)
         Label(self.machineentrywindow, text = "No. of Machines", font = 'candara 12 bold',width = 20, height =2).grid(row = 5, column = 0)
         Label(self.machineentrywindow, text = "Serial No", font = 'candara 12 bold',width = 20, height = 2).grid(row = 6, column = 0)
-        Label(self.machineentrywindow, text = "New Machine Entry", font = 'Constantia 13 bold').grid(row =  0, columnspan = 5)
+        Label(self.machineentrywindow, text = "NEW MACHINE ENTRY", font = 'Constantia 14 bold underline', height = 3).grid(row =  0, columnspan = 6)
         Label(self.machineentrywindow, text = "Generated Code", font = 'candara 12 bold',width = 20, height = 3).grid(row = 8, column = 0)
         Label(self.machineentrywindow, text = "Purchased Date", font = 'candara 12 bold',width = 20, height = 2).grid(row = 3, column = 3)
         Label(self.machineentrywindow, text = "Supplier Name", font = 'candara 12 bold',width = 20, height = 2).grid(row = 4, column = 3)
@@ -285,18 +596,18 @@ class machine_details(Tk):
         # purdate._set_text(purdate._date.strftime('%d/%m/%y'))
         self.newmacpurdate = purdate
 
-        Button(self.machineentrywindow, command = self.gencode,  text = 'Generate Code', font ='Cambria 12 bold italic', bd = 5, relief = RAISED,bg ='#c1cdc1', width = 15).grid(row = 7, columnspan = 2)
-        Button(self.machineentrywindow, command = self.maccodesaved,  text = 'Confirm', font ='Cambria 12 bold italic', bd = 5, relief = RAISED,bg ='#c1cdc1', width = 10).grid(row = 9, columnspan = 2)
-        Button(self.machineentrywindow, command = self.enterdate,  text = 'Enter', font ='Cambria 12 bold italic', bd = 3, relief = RAISED,bg ='#c1cdc1', width = 5).grid(row = 3, column = 6)
+        Button(self.machineentrywindow, command = self.gencode,  text = 'Generate Code', font ='Cambria 12 bold italic', bd = 5, relief = RAISED,bg = '#36648c',fg ='#ffffff', width = 15).grid(row = 7, columnspan = 2)
+        Button(self.machineentrywindow, command = self.maccodesaved,  text = 'Confirm', font ='Cambria 12 bold italic', bd = 5, relief = RAISED,bg = '#36648c',fg ='#ffffff', width = 10).grid(row = 9, columnspan = 2)
+        Button(self.machineentrywindow, command = self.enterdate,  text = 'Enter', font ='Cambria 10 bold italic', bd = 3, relief = RAISED,bg = '#36648c',fg ='#ffffff', width = 5).grid(row = 3, column = 6)
 
     # edit mahcine details window
     def editmachinecode(self):
         self.editmachinecode = Toplevel(root)
         self.editmachinecode.title('Edit Machine Code')
-        self.editmachinecode.geometry('1000x530')
+        self.editmachinecode.geometry('1000x580')
         self.editmachinecode.resizable(height=False, width=False)
 
-        Label(self.editmachinecode, text='Edit Machine Details', font='Constantia 13 bold').grid(row=0, columnspan=10)
+        Label(self.editmachinecode, text='EDIT MACHINE DETAILS', font = 'Constantia 14 bold underline', height = 3).grid(row=0, columnspan=10)
         Label(self.editmachinecode, text="Enter Machine Code", font='candara 12 bold', width=20, height=2).grid(row=1, column=0)
         Label(self.editmachinecode, text="Division", font='candara 12 bold', width=20, height=2).grid(row=2, column=0)
         Label(self.editmachinecode, text="Machine Name", font='candara 12 bold', width=20, height=2).grid(row=3,column=0)
@@ -329,7 +640,7 @@ class machine_details(Tk):
         self.editseriallist = ['1001', '1014']
         self.editsupplierlist = ['Shaheen Enterprises', 'Western Engineering']
 
-        Entry(self.editmachinecode, text=self.editoldcodeval, width = 22, font = 'Cambria 11 bold').grid(row=1, column=1)
+        Combobox(self.editmachinecode, text=self.editoldcodeval, values = self.editmaccodelist, font = 'Cambria 11 bold').grid(row=1, column=1)
         Combobox(self.editmachinecode, text=self.editdivval, values=self.editdivlist, font = 'Cambria 11 bold').grid(row=2, column=1)
         Combobox(self.editmachinecode, text=self.editmacnameval, values=self.editmacnamelist, font = 'Cambria 11 bold').grid(row=3, column=1)
         Combobox(self.editmachinecode, text=self.editmaccodeval, values=self.editmaccodelist, font = 'Cambria 11 bold').grid(row=4, column=1)
@@ -343,14 +654,13 @@ class machine_details(Tk):
 
         pureditdate = DateEntry(self.editmachinecode, bg='darkblue', fg='white', date_pattern='dd/mm/y')
         pureditdate.grid(row=4, column=5)
-        # purdate._set_text(purdate._date.strftime('%d/%m/%y'))
         self.editmacpurdate = pureditdate
 
-        Button(self.editmachinecode, command=self.editgencode, text='Generate Code', font='Cambria 12 bold italic',bd=5,relief=RAISED, bg='#c1cdc1', width=15).grid(row=8, columnspan=2)
+        Button(self.editmachinecode, command=self.editgencode, text='Generate Code', font='Cambria 12 bold italic',bd=5,relief=RAISED, bg = '#36648c',fg ='#ffffff', width=15).grid(row=8, columnspan=2)
         Button(self.editmachinecode, command=self.newcodesaved, text='Confirm', font='Cambria 12 bold italic', bd=5,
-               relief=RAISED, bg='#c1cdc1', width=10).grid(row=11, columnspan=2)
-        Button(self.editmachinecode, command=self.entereditdate, text='Enter', font='Cambria 12 bold italic', bd=3,
-               relief=RAISED, bg='#c1cdc1', width=5).grid(row=4, column=6)
+               relief=RAISED, bg = '#36648c',fg ='#ffffff', width=10).grid(row=11, columnspan=2)
+        Button(self.editmachinecode, command=self.entereditdate, text='Enter', font='Cambria 10 bold italic', bd=3,
+               relief=RAISED, bg = '#36648c',fg ='#ffffff', width=5).grid(row=4, column=6)
 
     # master list of machine window
     def masterlistmachines(self):
@@ -359,15 +669,15 @@ class machine_details(Tk):
         self.mastermachinewindow.geometry('500x450')
         self.mastermachinewindow.resizable(height=False, width=False)
 
-        Label(self.mastermachinewindow, text='Master List of Machines', font='Constantia 13 bold').pack(pady = 4)
+        Label(self.mastermachinewindow, text='MASTER LIST OF MACHINES', font = 'candara 14 bold ', height = 2).pack(pady = 4)
 
-        Button(self.mastermachinewindow, command=self.tan, text='Tannery Division', font='Cambria 12 bold italic', bd=5,relief=RAISED, bg='#c1cdc1', width=20).pack(pady = 5)
-        Button(self.mastermachinewindow, command=self.cut, text='Cutting Department', font='Cambria 12 bold italic', bd=5,relief=RAISED, bg='#c1cdc1', width=20).pack(pady = 5)
-        Button(self.mastermachinewindow, command=self.fd, text='Footwear Division', font='Cambria 12 bold italic', bd=5,relief=RAISED, bg='#c1cdc1', width=20).pack(pady = 5)
-        Button(self.mastermachinewindow, command=self.sd, text='Shoe Division',font='Cambria 12 bold italic', bd=5,relief=RAISED, bg='#c1cdc1', width=20).pack(pady = 5)
-        Button(self.mastermachinewindow, command=self.fs, text='FullShoe Division',font='Cambria 12 bold italic', bd=5,relief=RAISED, bg='#c1cdc1', width=20).pack(pady = 5)
-        Button(self.mastermachinewindow, command=self.bug, text='Bugatti Division',font='Cambria 12 bold italic', bd=5,relief=RAISED, bg='#c1cdc1', width=20).pack(pady = 5)
-        Button(self.mastermachinewindow, command=self.lfs, text='Ladies FullShoe Division',font='Cambria 12 bold italic', bd=5,relief=RAISED, bg='#c1cdc1', width=20).pack(pady = 5)
+        Button(self.mastermachinewindow, command=self.tan, text='Tannery Division', font='constantia 12 bold italic', bd=5,relief=RAISED, bg = '#36648c',fg ='#ffffff', width=20).pack(pady = 5)
+        Button(self.mastermachinewindow, command=self.cut, text='Cutting Department', font='constantia 12 bold italic', bd=5,relief=RAISED, bg = '#36648c',fg ='#ffffff', width=20).pack(pady = 5)
+        Button(self.mastermachinewindow, command=self.fd, text='Footwear Division', font='constantia 12 bold italic', bd=5,relief=RAISED, bg = '#36648c',fg ='#ffffff', width=20).pack(pady = 5)
+        Button(self.mastermachinewindow, command=self.sd, text='Shoe Division',font='constantia 12 bold italic', bd=5,relief=RAISED, bg = '#36648c',fg ='#ffffff', width=20).pack(pady = 5)
+        Button(self.mastermachinewindow, command=self.fs, text='FullShoe Division',font='constantia 12 bold italic', bd=5,relief=RAISED, bg = '#36648c',fg ='#ffffff', width=20).pack(pady = 5)
+        Button(self.mastermachinewindow, command=self.bug, text='Bugatti Division',font='constantia 12 bold italic', bd=5,relief=RAISED, bg = '#36648c',fg ='#ffffff', width=20).pack(pady = 5)
+        Button(self.mastermachinewindow, command=self.lfs, text='Ladies FullShoe Division',font='constantia 12 bold italic', bd=5,relief=RAISED, bg = '#36648c',fg ='#ffffff', width=20).pack(pady = 5)
 
     def machinecode(self):
         self.machineentrywindow = Toplevel(root)
@@ -402,9 +712,15 @@ if __name__ == '__main__':
     root = machine_details()
     root.main_page_label('N.M.ZACKRIAH &CO', 'candara 18 bold', "n")
     root.main_page_label('ALL DEPARTMENT MACHINERY DETAILS', 'candara 18 bold','n')
-    root.main_page_label('Designed by Imran Khan', 'candara 14 bold italic','s')
+    # root.main_page_label('Designed by Imran Khan', 'candara 13 bold italic','s')
 
     root.main_page_button()
+
+    root.main_page_frame()
+
+    root.times()
+
+    root.help_window()
 
 
 
