@@ -587,7 +587,7 @@ class machine_details(Tk):
         Combobox(self.machineentrywindow,text = self.newcapval, values = self.newcaplist, font = 'Cambria 11 bold').grid(row = 4, column = 1)
         Combobox(self.machineentrywindow,text = self.newnomacval, values = self.newnomaclist, font = 'Cambria 11 bold').grid(row = 5, column = 1)
         Combobox(self.machineentrywindow,text = self.newserialval, values = self.newseriallist, font = 'Cambria 11 bold').grid(row = 6, column = 1)
-        Entry(self.machineentrywindow,text = self.newpurchasedval, width = 22, font = 'Cambria 11 bold').grid(row = 3, column = 4)
+        Entry(self.machineentrywindow,text = self.newpurchasedval,state = DISABLED, width = 22, font = 'Cambria 11 bold').grid(row = 3, column = 4)
         Combobox(self.machineentrywindow,text = self.newsupplierval, values = self.newsupplierlist, font = 'Cambria 11 bold').grid(row = 4, column = 4)
         Entry(self.machineentrywindow, text = self.newgencodeval, state = DISABLED, width = 22, font = 'Cambria 11 bold').grid(row = 8, column = 1)
 
@@ -647,7 +647,7 @@ class machine_details(Tk):
         Combobox(self.editmachinecode, text=self.editcapval, values=self.editcaplist, font = 'Cambria 11 bold').grid(row=5, column=1)
         Combobox(self.editmachinecode, text=self.editnomacval, values=self.editnomaclist, font = 'Cambria 11 bold').grid(row=6, column=1)
         Combobox(self.editmachinecode, text=self.editserialval, values=self.editseriallist, font = 'Cambria 11 bold').grid(row=7, column=1)
-        Entry(self.editmachinecode, text=self.editpurchasedval, width = 22, font = 'Cambria 11 bold').grid(row=4, column=4)
+        Entry(self.editmachinecode, text=self.editpurchasedval,state = DISABLED, width = 22, font = 'Cambria 11 bold').grid(row=4, column=4)
         Combobox(self.editmachinecode, text=self.editsupplierval, values=self.editsupplierlist, font = 'Cambria 11 bold').grid(row=5, column=4)
         Entry(self.editmachinecode, text=self.editpreviousval, state = DISABLED, width = 22, font = 'Cambria 11 bold').grid(row=9, column=1)
         Entry(self.editmachinecode, text=self.editnewcodeval, state = DISABLED, width = 22, font = 'Cambria 11 bold').grid(row=10, column=1)
