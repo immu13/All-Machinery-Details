@@ -105,6 +105,7 @@ class machine_details(Tk):
             Purchased_Date = self.newpurchasedval.get()
             Supplier_Name = self.newsupplierval.get().upper()
             Final_Machine_Code = f'{self.newdivval.get().upper()}/{self.newmaccodeval.get().upper()}{self.newcapval.get().upper()}-{self.newnomacval.get()}/{self.newserialval.get()}'
+            Old_Machine_Code = f'{self.newdivval.get().upper()}/{self.newmaccodeval.get().upper()}{self.newcapval.get().upper()}-{self.newnomacval.get()}/{self.newserialval.get()}'
 
             cursor.execute('insert into Machine_Details (Division, Machine_Name, Capacity, Machine_Code, No_of_Machines, Serial_No, Purchased_Date, Supplier_Name, Final_Machine_Code) values (?,?,?,?,?,?,?,?,?)',(Division, Machine_Name, Capacity, Machine_Code, No_of_Machines, Serial_No, Purchased_Date, Supplier_Name, Final_Machine_Code))
             conn.commit()
@@ -149,25 +150,10 @@ class machine_details(Tk):
             Serial_No = self.editserialval.get()
             Purchased_Date = self.editpurchasedval.get()
             Supplier_Name = self.editsupplierval.get().upper()
-            Old_Machine_Code = self.editoldcodeval.get().upper()
+            # Old_Machine_Code = self.editoldcodeval.get().upper()
             Final_Machine_Code = f'{self.editdivval.get().upper()}/{self.editmaccodeval.get().upper()}{self.editcapval.get().upper()}-{self.editnomacval.get()}/{self.editserialval.get()}'
 
-            cursor.execute('update Machine_Details set Division=?, Machine_Name=?, Capacity=?, Machine_Code=?, No_of_Machines=?, Serial_No=?, Purchased_Date=?, Supplier_Name=?, Final_Machine_Code=? where Final_Machine_Code=?',(Division, Machine_Name, Capacity, Machine_Code, No_of_Machines, Serial_No, Purchased_Date,Supplier_Name, Final_Machine_Code, Old_Machine_Code))
-            conn.commit()
-
-            # cursor.execute('update Machine_Details set Final_Machine_Code=? where Final_Machine_Code=?',(Final_Machine_Code,Old_Machine_Code))
-            #
-            # cursor.execute('update Machine_Details set Division=? where Division=?',(Division,Division))
-            # cursor.execute('update Machine_Details set Machine_Name=? where Machine_Name=?',(Machine_Name,Machine_Name))
-            # cursor.execute('update Machine_Details set Capacity=? where Capacity=?',(Capacity,Capacity))
-            # cursor.execute('update Machine_Details set Machine_Code=? where Machine_Code=?',(Machine_Code,Machine_Code))
-            # cursor.execute('update Machine_Details set No_of_Machines=? where No_of_Machines=?',(No_of_Machines,No_of_Machines))
-            # cursor.execute('update Machine_Details set Serial_No=? where Serial_No=?',(Serial_No,Serial_No))
-            # cursor.execute('update Machine_Details set Purchased_Date=? where Purchased_Date=?',(Purchased_Date,Purchased_Date))
-            # cursor.execute('update Machine_Details set Supplier_Name=? where Supplier_Name=?',(Supplier_Name,Supplier_Name))
-            # cursor.execute('update Machine_Details set Final_Machine_Code=? where Final_Machine_Code=?',(Final_Machine_Code,Final_Machine_Code))
-            # conn.commit()
-
+ 
             self.editdivval.set('')
             self.editmacnameval.set('')
             self.editmaccodeval.set('')
