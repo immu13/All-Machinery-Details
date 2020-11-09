@@ -6,6 +6,7 @@ import tkinter.messagebox as tmsg
 import time
 import pyodbc
 
+
 conn = pyodbc.connect('Driver={SQL SERVER};'
                       'Server=IMRAN_KHAN;'
                       'Database=Mac_Details;'
@@ -18,7 +19,13 @@ class machine_details(Tk):
     def __init__(self):
         super().__init__()
         self.title('Machinery Details')
-        self.geometry('666x480')
+        self.width = 666
+        self.height = 480
+        self.ws = self.winfo_screenwidth()
+        self.hs = self.winfo_screenheight()
+        self.x = (self.ws / 2) - (self.width / 2)
+        self.y = (self.hs / 2) - (self.height / 2)
+        self.geometry('%dx%d+%d+%d' % (self.width, self.height, self.x, self.y))
         self.resizable(height=False, width=False)
         self.configure(background='#ffffff')
 
@@ -175,15 +182,7 @@ class machine_details(Tk):
 
     #delete button for machine code delete
     def deletemachine(self):
-        # Division = self.newdivval.get().upper()
-        # Machine_Name = self.newmacnameval.get().upper()
-        # Capacity = self.newcapval.get().upper()
-        # Machine_Code = self.newmaccodeval.get().upper()
-        # No_of_Machines = self.newnomacval.get().upper()
-        # Serial_No = self.newserialval.get()
-        # Purchased_Date = self.newpurchasedval.get()
-        # Supplier_Name = self.newsupplierval.get().upper()
-        # Final_Machine_Code = f'{self.newdivval.get().upper()}/{self.newmaccodeval.get().upper()}{self.newcapval.get().upper()}-{self.newnomacval.get()}/{self.newserialval.get()}'
+
         Old_Code = self.editoldcodeval.get()
 
         cursor.execute('delete from Machine_Details where Final_Machine_Code = ?',(Old_Code))
@@ -505,7 +504,13 @@ class machine_details(Tk):
     def tan(self):
         self.tan = Toplevel(root)
         self.tan.title('Master List of Machineries - Tannery Division')
-        self.tan.geometry('500x450')
+        self.width = 500
+        self.height = 450
+        self.ws = root.winfo_screenwidth()
+        self.hs = root.winfo_screenheight()
+        self.x = (self.ws / 2) - (self.width / 2)
+        self.y = (self.hs / 2) - (self.height / 2)
+        self.tan.geometry('%dx%d+%d+%d' % (self.width, self.height, self.x, self.y))
         self.tan.resizable(height=False, width=False)
 
         self.var1 = IntVar()
@@ -521,7 +526,13 @@ class machine_details(Tk):
     def cut(self):
         self.cut = Toplevel(root)
         self.cut.title('Master List of Machineries - Cutting Department')
-        self.cut.geometry('500x450')
+        self.width = 500
+        self.height = 450
+        self.ws = root.winfo_screenwidth()
+        self.hs = root.winfo_screenheight()
+        self.x = (self.ws / 2) - (self.width / 2)
+        self.y = (self.hs / 2) - (self.height / 2)
+        self.cut.geometry('%dx%d+%d+%d' % (self.width, self.height, self.x, self.y))
         self.cut.resizable(height=False, width=False)
 
         self.var1 = IntVar()
@@ -538,7 +549,13 @@ class machine_details(Tk):
     def fd(self):
         self.fd = Toplevel(root)
         self.fd.title('Master List of Machineries - Footwear Division')
-        self.fd.geometry('500x450')
+        self.width = 500
+        self.height = 450
+        self.ws = root.winfo_screenwidth()
+        self.hs = root.winfo_screenheight()
+        self.x = (self.ws / 2) - (self.width / 2)
+        self.y = (self.hs / 2) - (self.height / 2)
+        self.fd.geometry('%dx%d+%d+%d' % (self.width, self.height, self.x, self.y))
         self.fd.resizable(height=False, width=False)
 
         self.var1 = IntVar()
@@ -555,7 +572,13 @@ class machine_details(Tk):
     def sd(self):
         self.sd = Toplevel(root)
         self.sd.title('Master List of Machineries - Shoe Division')
-        self.sd.geometry('500x450')
+        self.width = 500
+        self.height = 450
+        self.ws = root.winfo_screenwidth()
+        self.hs = root.winfo_screenheight()
+        self.x = (self.ws / 2) - (self.width / 2)
+        self.y = (self.hs / 2) - (self.height / 2)
+        self.sd.geometry('%dx%d+%d+%d' % (self.width, self.height, self.x, self.y))
         self.sd.resizable(height=False, width=False)
 
         self.var1 = IntVar()
@@ -571,7 +594,13 @@ class machine_details(Tk):
     def fs(self):
         self.fs = Toplevel(root)
         self.fs.title('Master List of Machineries - FullShoe Division')
-        self.fs.geometry('500x450')
+        self.width = 500
+        self.height = 450
+        self.ws = root.winfo_screenwidth()
+        self.hs = root.winfo_screenheight()
+        self.x = (self.ws / 2) - (self.width / 2)
+        self.y = (self.hs / 2) - (self.height / 2)
+        self.fs.geometry('%dx%d+%d+%d' % (self.width, self.height, self.x, self.y))
         self.fs.resizable(height=False, width=False)
 
         self.var1 = IntVar()
@@ -588,7 +617,13 @@ class machine_details(Tk):
     def bug(self):
         self.bug = Toplevel(root)
         self.bug.title('Master List of Machineries - Bugatti')
-        self.bug.geometry('500x450')
+        self.width = 500
+        self.height = 450
+        self.ws = root.winfo_screenwidth()
+        self.hs = root.winfo_screenheight()
+        self.x = (self.ws / 2) - (self.width / 2)
+        self.y = (self.hs / 2) - (self.height / 2)
+        self.bug.geometry('%dx%d+%d+%d' % (self.width, self.height, self.x, self.y))
         self.bug.resizable(height=False, width=False)
 
         self.var1 = IntVar()
@@ -605,7 +640,13 @@ class machine_details(Tk):
     def lfs(self):
         self.lfs = Toplevel(root)
         self.lfs.title('Master List of Machineries - Ladies FUllShoe Division')
-        self.lfs.geometry('500x450')
+        self.width = 500
+        self.height = 450
+        self.ws = root.winfo_screenwidth()
+        self.hs = root.winfo_screenheight()
+        self.x = (self.ws / 2) - (self.width / 2)
+        self.y = (self.hs / 2) - (self.height / 2)
+        self.lfs.geometry('%dx%d+%d+%d' % (self.width, self.height, self.x, self.y))
         self.lfs.resizable(height=False, width=False)
 
         self.var1 = IntVar()
@@ -619,11 +660,57 @@ class machine_details(Tk):
         Button(self.lfs, text='Print', command=self.printlfslist, font='candara 12 bold italic', bd=5, relief=RAISED,
                bg='#36648c', fg='#ffffff', width=15).grid(row=6, columnspan=2)
 
+    # get machine details button
+    def getmachinedetails(self):
+
+        Division = self.codedivval.get().upper()
+
+        mac_name = cursor.execute('SELECT Distinct Machine_Name FROM Machine_Details where Division = ?',(Division)).fetchall()
+        mac_name = [i[0] for i in mac_name]
+        mac_code  = cursor.execute('SELECT Distinct Final_Machine_Code FROM Machine_Details where Division = ?',(Division)).fetchall()
+        mac_code = [i[0] for i in mac_code]
+        print(mac_name, mac_code)
+
+        # for index, dat in enumerate(mac_name):
+        #     Label(self.machinecodewindow, text = dat[0]).grid(row = index+1, column = 0)
+        #     Label(self.machinecodewindow, text = dat[1]).grid(row = index+1, column = 1)
+        #     Label(self.machinecodewindow, text = dat[2]).grid(row = index+1, column = 2)
+
+
+    def getmachinedetailss(self):
+
+        Machine_Name = self.codemachinenameval.get().upper()
+
+        mac_name = cursor.execute('SELECT Machine_Name FROM Machine_Details where Machine_Name = ?',
+                                  (Machine_Name)).fetchall()
+        mac_name = [i[0] for i in mac_name]
+        mac_code = cursor.execute('SELECT Distinct Final_Machine_Code FROM Machine_Details where Machine_Name = ?',(Machine_Name)).fetchall()
+        mac_code = [i[0] for i in mac_code]
+        print(mac_name, mac_code)
+
+    def getmachinedetailsss(self):
+
+        Machine_Code = self.codemachinecodeval.get().upper()
+
+        mac_name = cursor.execute('SELECT Machine_Name FROM Machine_Details where Final_Machine_Code = ?',
+                                  (Machine_Code)).fetchall()
+        mac_name = [i[0] for i in mac_name]
+        mac_code = cursor.execute('SELECT Distinct Final_Machine_Code FROM Machine_Details where Final_Machine_Code = ?',(Machine_Code)).fetchall()
+        mac_code = [i[0] for i in mac_code]
+        print(mac_name, mac_code)
+
+
     # new machine entry window
     def machineentry(self):
         self.machineentrywindow = Toplevel(root)
         self.machineentrywindow.title('New Machine Entry')
-        self.machineentrywindow.geometry('1000x530')
+        self.width = 1000
+        self.height = 530
+        self.ws = root.winfo_screenwidth()
+        self.hs = root.winfo_screenheight()
+        self.x = (self.ws/2) - (self.width/2)
+        self.y = (self.hs/2) - (self.height/2)
+        self.machineentrywindow.geometry('%dx%d+%d+%d' % (self.width, self.height, self.x, self.y))
         self.machineentrywindow.resizable(height=False, width=False)
         # print(self.machineentrywindow.winfo_height())
         # print(self.machineentrywindow.winfo_width())
@@ -710,12 +797,17 @@ class machine_details(Tk):
                relief=RAISED, bg='#36648c', fg='#ffffff', width=5).grid(row=3, column=6)
 
 
-
     # edit mahcine details window
     def editmachinecode(self):
         self.editmachinecode = Toplevel(root)
         self.editmachinecode.title('Edit Machine Code')
-        self.editmachinecode.geometry('1000x580')
+        self.width = 1050
+        self.height = 580
+        self.ws = root.winfo_screenwidth()
+        self.hs = root.winfo_screenheight()
+        self.x = (self.ws / 2) - (self.width / 2)
+        self.y = (self.hs / 2) - (self.height / 2)
+        self.editmachinecode.geometry('%dx%d+%d+%d' % (self.width, self.height, self.x, self.y))
         self.editmachinecode.resizable(height=False, width=False)
 
         Label(self.editmachinecode, text='EDIT MACHINE DETAILS', font='Constantia 14 bold underline', height=3).grid(
@@ -818,7 +910,13 @@ class machine_details(Tk):
     def masterlistmachines(self):
         self.mastermachinewindow = Toplevel(root)
         self.mastermachinewindow.title('Master List of Machineries')
-        self.mastermachinewindow.geometry('500x450')
+        self.width = 500
+        self.height = 450
+        self.ws = root.winfo_screenwidth()
+        self.hs = root.winfo_screenheight()
+        self.x = (self.ws / 2) - (self.width / 2)
+        self.y = (self.hs / 2) - (self.height / 2)
+        self.mastermachinewindow.geometry('%dx%d+%d+%d' % (self.width, self.height, self.x, self.y))
         self.mastermachinewindow.resizable(height=False, width=False)
 
         Label(self.mastermachinewindow, text='MASTER LIST OF MACHINES', font='candara 14 bold ', height=2).pack(pady=4)
@@ -839,9 +937,43 @@ class machine_details(Tk):
                font='constantia 12 bold italic', bd=5, relief=RAISED, bg='#36648c', fg='#ffffff', width=20).pack(pady=5)
 
     def machinecode(self):
-        self.machineentrywindow = Toplevel(root)
-        self.machineentrywindow.title('Machine Codes')
-        self.machineentrywindow.geometry('999x444')
+        self.machinecodewindow = Toplevel(root)
+        self.machinecodewindow.title('Machine Codes')
+        self.width = 1300
+        self.height = 444
+        self.ws = root.winfo_screenwidth()
+        self.hs = root.winfo_screenheight()
+        self.x = (self.ws / 2) - (self.width / 2)
+        self.y = (self.hs / 2) - (self.height / 2)
+        self.machinecodewindow.geometry('%dx%d+%d+%d' % (self.width, self.height, self.x, self.y))
+        self.machinecodewindow.resizable(height= False, width= False)
+
+        self.codedivval = StringVar()
+        self.codemachinenameval = StringVar()
+        self.codemachinecodeval = StringVar()
+
+        self.codedivlist = ['Z1','Z2','Z3','Z4','Z5','Z6']
+
+        mac_name = cursor.execute('select Distinct Machine_Name from Machine_Details').fetchall()
+        mac_name = [i[0] for i in mac_name]
+        self.codemachinenamelist = mac_name
+
+        mac_code = cursor.execute('SELECT Distinct Final_Machine_Code FROM Machine_Details').fetchall()
+        mac_code = [i[0] for i in mac_code]
+        self.codemachinecodelist = mac_code
+
+        Label(self.machinecodewindow, text='ALL DEPARTMENT MACHINE DETAILS', font='Constantia 14 bold underline', height=3).grid(row=0, columnspan=10)
+        Label(self.machinecodewindow, text = 'Division', font='candara 12 bold', width=20, height=2 ).grid(row =1, column = 0)
+        Label(self.machinecodewindow, text = 'Machine Name', font='candara 12 bold', width=20, height=2 ).grid(row =1, column = 2)
+        Label(self.machinecodewindow, text = 'Machine Code', font='candara 12 bold', width=20, height=2 ).grid(row =1, column = 4)
+
+        Combobox(self.machinecodewindow, text = self.codedivval, values = self.codedivlist, font='Cambria 11 bold').grid(row = 1, column = 1)
+        Combobox(self.machinecodewindow, text = self.codemachinenameval, values = self.codemachinenamelist, font='Cambria 11 bold').grid(row = 1, column = 3)
+        Combobox(self.machinecodewindow, text = self.codemachinecodeval, values = self.codemachinecodelist, font='Cambria 11 bold').grid(row = 1, column = 5)
+
+        Button(self.machinecodewindow, command=self.getmachinedetails, text='Get Machine Details', font='Cambria 12 bold italic', bd=5, relief=RAISED, bg='#36648c', fg='#ffffff', width=15).grid(row=2, column = 1)
+        Button(self.machinecodewindow, command=self.getmachinedetailss, text='Get Machine Details', font='Cambria 12 bold italic', bd=5, relief=RAISED, bg='#36648c', fg='#ffffff', width=15).grid(row=2, column = 3)
+        Button(self.machinecodewindow, command=self.getmachinedetailsss, text='Get Machine Details', font='Cambria 12 bold italic', bd=5, relief=RAISED, bg='#36648c', fg='#ffffff', width=15).grid(row=2, column = 5)
 
     def machinecodedesign(self):
         self.machineentrywindow = Toplevel(root)
